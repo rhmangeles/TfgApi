@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav_doctor :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <h3>Lista de medicamentos registrados</h3>
+            <form action="/new_form_medicamento" method="get">
+                <input type="submit" class="btn btn-primary" value="Registrar Medicamento"/>
+            </form>
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>PC</th>
+                    <th>Consideraciones</th>
+                    <th>Abrir ficha</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="medicamento : ${medicamentos}">
+                    <td th:text="${medicamento.nombre}">Nombre</td>
+                    <td th:text="${medicamento.PC}">PC</td>
+                    <td th:text="${medicamento.consideraciones}">Consideraciones</td>
+                    <td>
+                        <form action="#" method="get">
+                            <input type="hidden" name="idpaciente" th:value="${medicamento.idMedicamento}" />
+                            <input type="submit" class="btn btn-primary" value="Ficha">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+
+</body>
+</html>

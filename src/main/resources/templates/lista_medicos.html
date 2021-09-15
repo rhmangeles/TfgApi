@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="medico : ${medicos}">
+                    <td th:text="${medico.nombre}">Nombre</td>
+                    <td th:text="${medico.apellidos}">Apellidos</td>
+                    <td th:text="${medico.email}">Email</td>
+                    <td th:text="${medico.telf}">Telefono</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+<div th:include="fragment/popups/login_modal :: login_modal"/>
+
+</body>
+</html>

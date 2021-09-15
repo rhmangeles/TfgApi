@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav_doctor :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <h3>Datos Principales del paciente</h3>
+
+            <table id="ficha_paciente" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Sexo</th>
+                    <th>Ciudad</th>
+                    <th>Nueva Consulta</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${ficha_paciente.fichaPaciente.nombre}">Nombre</td>
+                    <td th:text="${ficha_paciente.fichaPaciente.apellidos}">Apellidos</td>
+                    <td th:text="${ficha_paciente.fichaPaciente.fechaNacimiento}">Email</td>
+                    <td th:text="${ficha_paciente.fichaPaciente.sexo}">Sexo</td>
+                    <td th:text="${ficha_paciente.fichaPaciente.ciudad}">Ciudad</td>
+                    <td>
+                        <form action="/nueva_consulta" method="get">
+                            <input type="hidden" name="idpaciente" th:value="${ficha_paciente.fichaPaciente.idPaciente}" />
+                            <input type="submit" class="btn btn-primary" value="N. Consulta">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>Consultas</h3>
+
+            <table id="tconsultas" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Fecha Consulta</th>
+                    <th>Medico</th>
+                    <th>Ver Consulta</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="consulta : ${ficha_paciente.consultas}">
+                    <td th:text="${consulta.fechaConsulta}">Fecha Consulta</td>
+                    <td th:text="${consulta.medico.Nombre + ' ' + consulta.medico.Apellidos}">Medico</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>Medicacion actual</h3>
+            <table id="tmedactual" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>PC</th>
+                    <th>Consideraciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="medicamento : ${ficha_paciente.medicamentosActuales}">
+                    <td th:text="${medicamento.Nombre}">Nombre</td>
+                    <td th:text="${medicamento.PC}">Apellidos</td>
+                    <td th:text="${medicamento.Consideraciones}">Email</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+
+</body>
+</html>

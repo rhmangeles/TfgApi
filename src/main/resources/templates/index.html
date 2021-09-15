@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <h2>Sistema de control de toma de medicamentos.</h2>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+<div th:include="fragment/popups/login_modal :: login_modal"/>
+
+
+</body>
+</html>

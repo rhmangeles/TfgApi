@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav_doctor :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <h3>Registro nueva consulta</h3>
+
+            <br/>
+            <br/>
+
+            <form action="/save_consulta" method="POST">
+                <h3>Paciente</h3>
+                <select class="form-control form-select" id="paciente" name="paciente">
+                    <option th:each="paciente : ${formData.pacientesAsociados}"
+                            th:value="${paciente.idPaciente}"
+                            th:text="${paciente.Nombre+ ' ' + paciente.Apellidos}"/>
+                </select>
+
+                <br/>
+
+                <h3>Medicamentos</h3>
+                <div class="d-flex flex-row">
+                    <div class="p-6">
+                        <select multiple class="form-control form-select" id="medicamentos_disponibles">
+                            <option th:each="medicamento : ${formData.medicamentosDisponibles}"
+                                    th:value="${medicamento.idMedicamento}"
+                                    th:text="${medicamento.Nombre}"/>
+                        </select>
+                    </div>
+                    <div class="p-2">
+                        <button type="button" class="btn btn-primary" onclick="selectMedicamento()" value="seleccionar">Seleccionar</button>
+                    </div>
+                    <div class="p-6">
+                        <select multiple class="form-control form-select" id="medicamentos_seleccionados" name="medicamentos_seleccionados" disabled>
+                        </select>
+                    </div>
+                </div>
+
+                <!--  -->
+                <br/>
+                <input type="hidden" id="idsmedicamentos" name="idsmedicamentos" value="" />
+                <button type="submit" class="btn btn-primary" value="Registrar">Registrar</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+
+    <div id="modalHorarios" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Frecuencia de tomas</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Se selecciona la frecuencia de tomas -->
+                    <p>Seleccione desde cuando y a que hora debe</p>
+                    <p>tomar el paciente este medicamento.</p>
+                    <input type="time" id="timerToma" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary"  data-dismiss="modal" onclick="saveHora()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script language="JavaScript">
+
+var hora = '';
+var medId = '';
+
+// Rellenamos los id's
+const showFRecuenciaTomaModal = () => {
+   $('#modalHorarios').modal('show');
+}
+
+const selectMedicamento = () => {
+    var medSeleccionados = document.getElementById("medicamentos_seleccionados");
+    var opt = document.createElement('option');
+    var med = document.getElementById("medicamentos_disponibles");
+    medId = med.options[med.selectedIndex].value;
+    var medName = med.options[med.selectedIndex].text;
+    opt.value=medId;
+    opt.innerHTML=medName;
+    medSeleccionados.appendChild(opt);
+
+    showFRecuenciaTomaModal(); // MOstramos el modal para seleccionar la frecuencia de tomas.
+
+}
+
+const saveHora = () => {
+    // Traemos la fecha actual
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()+' ';
+    var idMedSeleccionados = document.getElementById("idsmedicamentos").value;
+    var data = document.getElementById("timerToma").value;
+    hora = data;
+    //Incluimos el registro del medicamento
+    document.getElementById("idsmedicamentos").value = idMedSeleccionados + ',' + medId+';'+date+' '+hora+':00';
+    console.log('Datos: '+document.getElementById("idsmedicamentos").value);
+}
+
+</script>
+</html>

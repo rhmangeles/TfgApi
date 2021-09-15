@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav_doctor :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+            <h3>Datos Principales del paciente</h3>
+
+            <form action="/save_form_nuevo_paciente" method="post">
+                <div class="mb-3">
+                    <label for="nombreInput" class="form-label">Nombre del paciente.</label>
+                    <input type="text" class="form-control" name="nombreInput" id="nombreInput" aria-describedby="nombreHelp">
+                    <div id="nombreHelp" class="form-text">Nombre de pila del paciente.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidosInput" class="form-label">Apellidos del paciente.</label>
+                    <input type="text" class="form-control" name="apellidosInput" id="apellidosInput" aria-describedby="apellidosHelp">
+                    <div id="apellidosHelp" class="form-text">Apellido/os del paciente.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaNacInput" class="form-label">Fecha de nacimiento del paciente.</label>
+                    <input type="date" class="form-control" name="fechaNacInput" id="fechaNacInput" aria-describedby="fechaNacHelp">
+                    <div id="fechaNacHelp" class="form-text">Fecha de naciemiento del paciente</div>
+                </div>
+                <div class="mb-3">
+                    <label for="sexoInput" class="form-label">Sexo del paciente.</label>
+                    <select class="form-select" id="sexoInput" name="sexoInput" aria-label="Seleccion de sexo">
+                        <option value="V" selected>Hombre</option>
+                        <option value="F">Mujer</option>
+                    </select>
+                    <div id="sexoHelp" class="form-text">Sexo el paciente</div>
+                </div>
+                <div class="mb-3">
+                    <label for="ciudadInput" class="form-label">Ciudad de residencia del paciente.</label>
+                    <input type="text" class="form-control" name="ciudadInput" id="ciudadInput" aria-describedby="ciudadHelp">
+                    <div id="ciudadHelp" class="form-text">Ciudad donde reside el paciente</div>
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email del paciente.</label>
+                    <input type="email" class="form-control" name="emailInput" id="emailInput" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">Email del paciente</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+
+</body>
+</html>

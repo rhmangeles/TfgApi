@@ -1,0 +1,7 @@
+<div th:fragment="footer" >
+    <div th:include="fragment/popups/close_session :: close_session_modal"/>
+    <div th:include="fragment/popups/login_modal :: login_modal"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</div>

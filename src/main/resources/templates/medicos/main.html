@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Control de medicación</title>
+
+    <div th:include="fragment/header :: head"/>
+
+</head>
+<body>
+
+<!-- Menu de navegacion -->
+<div th:replace="fragment/nav_doctor :: nav"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <h1> Lista de Pacientes </h1>
+            <form action="/form_new_paciente" method="get">
+                <input type="submit" class="btn btn-primary"  value="Nuevo Paciente"/>
+            </form>
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Sexo</th>
+                    <th>Ciudad</th>
+                    <th>Abrir Ficha</th>
+                    <th>Nueva Consulta</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="paciente : ${pacientes}">
+                    <td th:text="${paciente.nombre}">Nombre</td>
+                    <td th:text="${paciente.apellidos}">Apellidos</td>
+                    <td th:text="${paciente.fechaNacimiento}">Fecha Nacimiento</td>
+                    <td th:text="${paciente.sexo}">Sexo</td>
+                    <td th:text="${paciente.ciudad}">Ciudad</td>
+                    <td>
+                        <form action="/ficha_paciente" method="get">
+                            <input type="hidden" name="idpaciente" th:value="${paciente.idPaciente}" />
+                            <input type="submit" class="btn btn-primary" value="Ficha">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/nueva_consulta" method="get">
+                            <input type="hidden" name="idpaciente" th:value="${paciente.idPaciente}" />
+                            <input type="submit" class="btn btn-primary" value="N. Consulta">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:include="fragment/footer :: footer"/>
+
+</body>
+</html>
